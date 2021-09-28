@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ public class ActorDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
     private String summary;
+    @NotNull
     private MultipartFile[] fileDatas;
 
     public String getName() {

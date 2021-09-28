@@ -55,6 +55,7 @@ public class ActorController {
     @PostMapping(value = "/secure/create-actor", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity createActor(@Valid @ModelAttribute ActorDTO actorDTO) {
         ResponseBean bean = new ResponseBean();
+        logger.info(actorDTO.toString());
         actorService.create(bean, actorDTO);
         return ResponseEntity.ok(bean);
     }
