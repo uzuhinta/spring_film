@@ -1,6 +1,7 @@
 package com.quannar.film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.quannar.film.common.ConvertVI;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
@@ -141,6 +142,6 @@ public class Actor {
     }
 
     public String getSlug() {
-        return String.format("%s_%s", this.id, this.name.toLowerCase().replace(" ", "_"));
+        return String.format("%s_%s", this.id, ConvertVI.createSlug(this.name));
     }
 }

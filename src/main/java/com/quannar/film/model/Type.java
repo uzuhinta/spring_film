@@ -1,6 +1,7 @@
 package com.quannar.film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.quannar.film.common.ConvertVI;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,8 @@ import java.util.Date;
 
 import static javax.persistence.GenerationType.*;
 
+@Entity
+@Table(name = "TYPE")
 public class Type {
 
     @Id
@@ -30,6 +33,7 @@ public class Type {
     @Column(
             name = "NAME",
             nullable = false,
+            unique = true,
             columnDefinition = "TEXT"
     )
     private String name;
@@ -39,6 +43,9 @@ public class Type {
             columnDefinition = "TEXT"
     )
     private String description;
+
+    @Transient
+    private String slug;
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
@@ -102,5 +109,9 @@ public class Type {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getSlug() {
+        return ConvertVI.createSlug(this.name);
     }
 }
