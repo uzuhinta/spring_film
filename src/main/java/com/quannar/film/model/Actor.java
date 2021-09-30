@@ -57,13 +57,13 @@ public class Actor {
     private String img;
 
     @Column(name = "CREATED_AT")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @CreationTimestamp
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
 
     @Column(name = "UPDATED_AT")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @UpdateTimestamp
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;

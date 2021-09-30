@@ -1,13 +1,7 @@
 package com.quannar.film.config;
 
-import com.quannar.film.model.Actor;
-import com.quannar.film.model.Category;
-import com.quannar.film.model.Review;
-import com.quannar.film.model.Type;
-import com.quannar.film.repository.ActorRepository;
-import com.quannar.film.repository.CategoryRepository;
-import com.quannar.film.repository.ReviewRepository;
-import com.quannar.film.repository.TypeRepository;
+import com.quannar.film.model.*;
+import com.quannar.film.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +18,9 @@ public class InitDatabase {
             ActorRepository actorRepository,
             TypeRepository typeRepository,
             CategoryRepository categoryRepository,
-            ReviewRepository reviewRepository
+            ReviewRepository reviewRepository,
+            FilmRepository filmRepository
+
     ) {
         return args -> {
             Actor quan = new Actor("quan");
@@ -55,6 +51,10 @@ public class InitDatabase {
             Review review1 = new Review("review summary", "review short", "review content");
 
             reviewRepository.saveAndFlush(review1);
+
+            Film film = new Film("Phim người kiến");
+
+            filmRepository.saveAndFlush(film);
         };
     }
 }
