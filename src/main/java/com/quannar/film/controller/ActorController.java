@@ -28,15 +28,15 @@ public class ActorController {
         this.actorService = actorService;
     }
 
-    @GetMapping(path = "/actors")
+    @GetMapping(path = "/actor")
     ResponseEntity getActors() {
         ResponseBean bean = new ResponseBean();
         actorService.getActors(bean);
         return ResponseEntity.ok(bean);
     }
 
-    @GetMapping(path = "/actor")
-    ResponseEntity getActor(@RequestParam("id") Long actorId) {
+    @GetMapping(path = "/actor/{id}")
+    ResponseEntity getActor(@PathVariable("id") Long actorId) {
         ResponseBean bean = new ResponseBean();
         actorService.getActor(bean, actorId);
         return ResponseEntity.ok(bean);

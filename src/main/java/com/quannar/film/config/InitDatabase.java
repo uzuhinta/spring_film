@@ -2,9 +2,11 @@ package com.quannar.film.config;
 
 import com.quannar.film.model.Actor;
 import com.quannar.film.model.Category;
+import com.quannar.film.model.Review;
 import com.quannar.film.model.Type;
 import com.quannar.film.repository.ActorRepository;
 import com.quannar.film.repository.CategoryRepository;
+import com.quannar.film.repository.ReviewRepository;
 import com.quannar.film.repository.TypeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +23,8 @@ public class InitDatabase {
     CommandLineRunner commandLineRunner(
             ActorRepository actorRepository,
             TypeRepository typeRepository,
-            CategoryRepository categoryRepository
+            CategoryRepository categoryRepository,
+            ReviewRepository reviewRepository
     ) {
         return args -> {
             Actor quan = new Actor("quan");
@@ -48,6 +51,10 @@ public class InitDatabase {
             Category category3 = new Category("Phim cổ trang");
 
             categoryRepository.saveAllAndFlush(Arrays.asList(category1, category2, category3));
+
+            Review review1 = new Review("review summary", "review short", "review content");
+
+            reviewRepository.saveAndFlush(review1);
         };
     }
 }

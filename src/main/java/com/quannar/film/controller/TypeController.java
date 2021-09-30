@@ -21,7 +21,7 @@ public class TypeController {
         this.typeService = typeService;
     }
 
-    @GetMapping(path = "/types")
+    @GetMapping(path = "/type")
     ResponseEntity getAllType() {
         ResponseBean bean = new ResponseBean();
         typeService.getAll(bean);

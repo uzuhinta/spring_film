@@ -23,7 +23,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping(path = "/categories")
+    @GetMapping(path = "/category")
     ResponseEntity getAllType() {
         ResponseBean bean = new ResponseBean();
         categoryService.getAll(bean);
