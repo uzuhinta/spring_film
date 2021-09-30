@@ -34,4 +34,11 @@ public class TypeController {
         typeService.create(bean, typeDTO);
         return ResponseEntity.ok(bean);
     }
+
+    @DeleteMapping(path = "/secure/type/{id}")
+    ResponseEntity deleteType(@PathVariable("id") Long typeId) {
+        ResponseBean bean = new ResponseBean();
+        typeService.deleteTypeById(bean, typeId);
+        return ResponseEntity.ok(bean);
+    }
 }

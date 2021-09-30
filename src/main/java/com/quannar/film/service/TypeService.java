@@ -9,4 +9,7 @@ public interface TypeService {
     void getAll(ResponseBean bean);
 
     void create(ResponseBean bean, TypeDTO typeDTO);
+
+    void deleteTypeById(ResponseBean bean, Long actorId);
+
 }

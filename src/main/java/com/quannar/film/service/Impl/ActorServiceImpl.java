@@ -71,7 +71,7 @@ public class ActorServiceImpl implements ActorService {
             bean.addData("actor",actorById.get());
         }else {
             bean.setError(Constant.ERROR_CODE_NOK);
-            bean.setMessage(Constant.MSG_ACTOR_NOT_FOUND);
+            bean.setMessage(Constant.MSG_NOT_FOUND);
         }
     }
 
@@ -135,11 +135,11 @@ public class ActorServiceImpl implements ActorService {
         Optional<Actor> actorById = actorRepository.getActorById(actorId);
         if(actorById.isPresent()){
             actorRepository.deleteActorById(actorId);
-            bean.setMessage(Constant.MSG_ACTOR_DELETE_SUCCESS);
+            bean.setMessage(Constant.MSG_DELETE_SUCCESS);
             bean.setError(Constant.ERROR_CODE_OK);
             bean.addData("actor", actorById);
         }else {
-            bean.setDescription(Constant.MSG_ACTOR_NOT_FOUND);
+            bean.setDescription(Constant.MSG_NOT_FOUND);
             bean.setError(Constant.ERROR_CODE_NOK);
         }
     }
@@ -153,11 +153,11 @@ public class ActorServiceImpl implements ActorService {
             actor.setDob(actorDTO.getDob());
             actor.setSummary(actorDTO.getSummary());
             actorRepository.saveAndFlush(actor);
-            bean.setMessage(Constant.MSG_ACTOR_UPDATE_SUCCESS);
+            bean.setMessage(Constant.MSG_UPDATE_SUCCESS);
             bean.addData("actor", actor);
             bean.setError(Constant.ERROR_CODE_OK);
         }else {
-            bean.setDescription(Constant.MSG_ACTOR_NOT_FOUND);
+            bean.setDescription(Constant.MSG_NOT_FOUND);
             bean.setError(Constant.ERROR_CODE_NOK);
         }
     }

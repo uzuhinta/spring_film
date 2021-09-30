@@ -9,7 +9,9 @@ import com.quannar.film.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -34,5 +36,23 @@ public class TypeServiceImpl implements TypeService {
         typeRepository.saveAndFlush(type);
         bean.addData("type", type);
         bean.setError(Constant.ERROR_CODE_OK);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTypeById(ResponseBean bean, Long typeId) {
+        Optional<Type> optionalType = typeRepository.getActorById(typeId);
+
+        if (optionalType.isPresent()){
+
+            typeRepository.deleteTypeById(typeId);
+
+            bean.setMessage(Constant.MSG_DELETE_SUCCESS);
+            bean.setError(Constant.ERROR_CODE_OK);
+            bean.addData("type", optionalType);
+        } else {
+            bean.setMessage(Constant.MSG_NOT_FOUND);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
     }
 }
