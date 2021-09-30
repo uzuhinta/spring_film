@@ -52,7 +52,7 @@ public class ActorController {
         return ResponseEntity.ok(bean);
     }
 
-    @PostMapping(value = "/secure/create-actor", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/secure/actor", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity createActor(@Valid @ModelAttribute ActorDTO actorDTO) {
         ResponseBean bean = new ResponseBean();
         logger.info(actorDTO.toString());
@@ -60,8 +60,8 @@ public class ActorController {
         return ResponseEntity.ok(bean);
     }
 
-    @DeleteMapping(path = "/secure/actor")
-    ResponseEntity deleteActor(@RequestParam("id") Long actorId) {
+    @DeleteMapping(path = "/secure/actor/{id}")
+    ResponseEntity deleteActor(@PathVariable("id") Long actorId) {
         ResponseBean bean = new ResponseBean();
         actorService.deleteActorById(bean, actorId);
         return ResponseEntity.ok(bean);
