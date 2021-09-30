@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.Date;
+import java.time.Month;
 import java.util.Arrays;
 
 @Configuration
@@ -24,10 +25,11 @@ public class InitDatabase {
             quan.setDob(Date.valueOf("1999-08-17"));
             quan.setSummary("Nguyen Ba Quan");
 
-
             Actor nga = new Actor("nga");
             nga.setDob(Date.valueOf("1999-02-05"));
             nga.setSummary("Description of nga");
+
+            System.out.println(nga.toString());
 
             Actor thirdActor = new Actor("3rd actor");
 

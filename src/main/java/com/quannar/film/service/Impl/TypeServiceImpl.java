@@ -2,6 +2,7 @@ package com.quannar.film.service.Impl;
 
 import com.quannar.film.common.Constant;
 import com.quannar.film.model.Type;
+import com.quannar.film.payload.request.TypeDTO;
 import com.quannar.film.payload.response.ResponseBean;
 import com.quannar.film.repository.TypeRepository;
 import com.quannar.film.service.TypeService;
@@ -24,6 +25,14 @@ public class TypeServiceImpl implements TypeService {
     public void getAll(ResponseBean bean) {
         List<Type> allType = typeRepository.getAllType();
         bean.addData("types", allType);
+        bean.setError(Constant.ERROR_CODE_OK);
+    }
+
+    @Override
+    public void create(ResponseBean bean, TypeDTO typeDTO) {
+        Type type = new Type(typeDTO.getName(), typeDTO.getDescription());
+        typeRepository.saveAndFlush(type);
+        bean.addData("type", type);
         bean.setError(Constant.ERROR_CODE_OK);
     }
 }
