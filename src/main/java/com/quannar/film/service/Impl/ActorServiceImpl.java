@@ -146,19 +146,24 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public void updateActor(ResponseBean bean, Long actorId, ActorDTO actorDTO) throws Exception {
-        Optional<Actor> actorById = actorRepository.getActorById(actorId);
-        if(actorById.isPresent()){
-            Actor actor = actorById.get();
-            actor.setName(actorDTO.getName());
-            actor.setDob(actorDTO.getDob());
-            actor.setSummary(actorDTO.getSummary());
-            actorRepository.saveAndFlush(actor);
-            bean.setMessage(Constant.MSG_UPDATE_SUCCESS);
-            bean.addData("actor", actor);
-            bean.setError(Constant.ERROR_CODE_OK);
-        }else {
-            bean.setDescription(Constant.MSG_NOT_FOUND);
+        if(actorDTO.getName() == null || actorDTO.getName().trim() == "") {
+            bean.setDescription(Constant.MSG_NOT_VALID);
             bean.setError(Constant.ERROR_CODE_NOK);
+        } else {
+            Optional<Actor> actorById = actorRepository.getActorById(actorId);
+            if(actorById.isPresent()){
+                Actor actor = actorById.get();
+                actor.setName(actorDTO.getName());
+                actor.setDob(actorDTO.getDob());
+                actor.setSummary(actorDTO.getSummary());
+                actorRepository.saveAndFlush(actor);
+                bean.setMessage(Constant.MSG_UPDATE_SUCCESS);
+                bean.addData("actor", actor);
+                bean.setError(Constant.ERROR_CODE_OK);
+            }else {
+                bean.setDescription(Constant.MSG_NOT_FOUND);
+                bean.setError(Constant.ERROR_CODE_NOK);
+            }
         }
     }
 }

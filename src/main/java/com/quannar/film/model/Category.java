@@ -44,6 +44,12 @@ public class Category {
     @Transient
     private String slug;
 
+    @Column(
+            name = "STATUS",
+            columnDefinition = "INTEGER DEFAULT 1"
+    )
+    private Integer status;
+
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
     @UpdateTimestamp
@@ -92,6 +98,10 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Date getCreatedAt() {

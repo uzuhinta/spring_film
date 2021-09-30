@@ -53,10 +53,12 @@ public class InitDatabase {
             reviewRepository.saveAndFlush(review1);
 
             Film film = new Film("Phim người kiến");
+            Film film1 = new Film("Phim sieu anh hung");
 
             film.setType(type1);
+            film1.setType(type1);
 
-            filmRepository.saveAndFlush(film);
+            filmRepository.saveAllAndFlush(Arrays.asList(film, film1));
         };
     }
 }

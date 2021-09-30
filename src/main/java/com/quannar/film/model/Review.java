@@ -48,6 +48,12 @@ public class Review {
     )
     private String content;
 
+    @Column(
+            name = "STATUS",
+            columnDefinition = "INTEGER DEFAULT 1"
+    )
+    private Integer status;
+
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
     @CreationTimestamp
@@ -99,6 +105,14 @@ public class Review {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreatedAt() {

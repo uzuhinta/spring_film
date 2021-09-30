@@ -56,6 +56,12 @@ public class Actor {
     )
     private String img;
 
+    @Column(
+            name = "STATUS",
+            columnDefinition = "INTEGER DEFAULT 1"
+    )
+    private Integer status;
+
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
     @CreationTimestamp
@@ -123,6 +129,14 @@ public class Actor {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreatedAt() {

@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.*;
@@ -48,10 +49,16 @@ public class Type {
 
     @OneToMany(mappedBy = "type")
     @JsonIgnore
-    private Set<Film> films;
+    private Set<Film> films = new HashSet<>();
 
     @Transient
     private String slug;
+
+    @Column(
+            name = "STATUS",
+            columnDefinition = "INTEGER DEFAULT 1"
+    )
+    private Integer status;
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
@@ -107,6 +114,14 @@ public class Type {
 
     public void setFilms(Set<Film> films) {
         this.films = films;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreatedAt() {
