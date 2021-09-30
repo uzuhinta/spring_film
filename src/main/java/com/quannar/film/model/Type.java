@@ -48,7 +48,6 @@ public class Type {
     private String description;
 
     @OneToMany(mappedBy = "type")
-    @JsonIgnore
     private Set<Film> films = new HashSet<>();
 
     @Transient
@@ -56,9 +55,9 @@ public class Type {
 
     @Column(
             name = "STATUS",
-            columnDefinition = "INTEGER DEFAULT 1"
+            columnDefinition = "SMALLINT NOT NULL"
     )
-    private Integer status;
+    private Integer status = 1;
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)

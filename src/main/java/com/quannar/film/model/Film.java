@@ -8,7 +8,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "FILM")
@@ -88,11 +90,37 @@ public class Film {
     @JsonIgnore
     private Type type;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "REVIEW_ID",
+            referencedColumnName = "ID",
+            foreignKey = @ForeignKey(
+                    name = "FILM_REVIEW_FK"
+            )
+    )
+    @JsonIgnore
+    private Review review;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "CATEGORY_ID",
+            referencedColumnName = "ID",
+            foreignKey = @ForeignKey(
+                    name = "FILM_CATEGORY_FK"
+            )
+    )
+    @JsonIgnore
+    private Category category;
+
+    @OneToMany(mappedBy = "film")
+    @JsonIgnore
+    private Set<FilmActor> filmActors = new HashSet<>();
+
     @Column(
             name = "STATUS",
-            columnDefinition = "INTEGER DEFAULT 1"
+            columnDefinition = "SMALLINT NOT NULL"
     )
-    private Integer status;
+    private Integer status = 1;
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
@@ -209,6 +237,30 @@ public class Film {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Set<FilmActor> getFilmActors() {
+        return filmActors;
+    }
+
+    public void setFilmActors(Set<FilmActor> filmActors) {
+        this.filmActors = filmActors;
     }
 
     public Integer getStatus() {

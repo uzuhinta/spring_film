@@ -50,9 +50,13 @@ public class Review {
 
     @Column(
             name = "STATUS",
-            columnDefinition = "INTEGER DEFAULT 1"
+            columnDefinition = "SMALLINT NOT NULL"
     )
-    private Integer status;
+    private Integer status = 1;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "review")
+    private Film film;
+
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
@@ -113,6 +117,14 @@ public class Review {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
     public Date getCreatedAt() {

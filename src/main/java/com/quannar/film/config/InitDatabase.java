@@ -58,6 +58,10 @@ public class InitDatabase {
             film.setType(type1);
             film1.setType(type1);
 
+            film.setReview(review1);
+
+            film.setCategory(category1);
+
             filmRepository.saveAllAndFlush(Arrays.asList(film, film1));
         };
     }

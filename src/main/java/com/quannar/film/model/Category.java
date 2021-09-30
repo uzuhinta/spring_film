@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -46,9 +48,12 @@ public class Category {
 
     @Column(
             name = "STATUS",
-            columnDefinition = "INTEGER DEFAULT 1"
+            columnDefinition = "SMALLINT NOT NULL"
     )
-    private Integer status;
+    private Integer status = 1;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+    Set<Film> films = new HashSet<>();
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
@@ -102,6 +107,14 @@ public class Category {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
     }
 
     public Date getCreatedAt() {

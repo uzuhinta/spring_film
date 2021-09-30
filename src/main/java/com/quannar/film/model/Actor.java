@@ -1,11 +1,14 @@
 package com.quannar.film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quannar.film.common.ConvertVI;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -58,9 +61,13 @@ public class Actor {
 
     @Column(
             name = "STATUS",
-            columnDefinition = "INTEGER DEFAULT 1"
+            columnDefinition = "SMALLINT NOT NULL"
     )
-    private Integer status;
+    private Integer status = 1;
+
+    @OneToMany(mappedBy = "actor")
+    @JsonIgnore
+    private Set<FilmActor> filmActors = new HashSet<>();
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
@@ -137,6 +144,14 @@ public class Actor {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<FilmActor> getFilmActors() {
+        return filmActors;
+    }
+
+    public void setFilmActors(Set<FilmActor> filmActors) {
+        this.filmActors = filmActors;
     }
 
     public Date getCreatedAt() {
