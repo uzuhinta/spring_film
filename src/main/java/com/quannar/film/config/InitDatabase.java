@@ -54,6 +54,8 @@ public class InitDatabase {
 
             Film film = new Film("Phim người kiến");
 
+            film.setType(type1);
+
             filmRepository.saveAndFlush(film);
         };
     }

@@ -6,10 +6,10 @@ import com.quannar.film.payload.response.ResponseBean;
 
 public interface TypeService {
 
-    void getAll(ResponseBean bean);
+    void getAll(ResponseBean bean) throws Exception;
 
-    void create(ResponseBean bean, TypeDTO typeDTO);
+    void create(ResponseBean bean, TypeDTO typeDTO) throws Exception;
 
-    void deleteTypeById(ResponseBean bean, Long actorId);
+    void deleteTypeById(ResponseBean bean, Long actorId) throws Exception;
 
 }

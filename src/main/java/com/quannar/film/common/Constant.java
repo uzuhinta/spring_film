@@ -12,4 +12,6 @@ public class Constant {
     public static final String MSG_DELETE_SUCCESS = "Delete successfully!";
     public static final String MSG_UPDATE_SUCCESS = "Update successfully";
     public static final String MSG_CREATE_SUCCESS = "Create successfully";
+
+    public static final String MSG_SERVER_ERROR = "Server error, Please contact admin";
 }

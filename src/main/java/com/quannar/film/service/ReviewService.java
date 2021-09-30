@@ -6,10 +6,10 @@ import com.quannar.film.payload.response.ResponseBean;
 
 public interface ReviewService {
 
-    void getAll(ResponseBean bean);
+    void getAll(ResponseBean bean) throws Exception;
 
-    void create(ResponseBean bean, ReviewDTO reviewDTO);
+    void create(ResponseBean bean, ReviewDTO reviewDTO) throws Exception;
 
-    void deleteReviewById(ResponseBean bean, Long reviewId);
+    void deleteReviewById(ResponseBean bean, Long reviewId) throws Exception;
 
 }

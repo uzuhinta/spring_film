@@ -1,12 +1,14 @@
 package com.quannar.film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quannar.film.common.ConvertVI;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "FILM")
@@ -23,8 +25,7 @@ public class Film {
             generator = "FILM_SEQUENCE"
     )
     @Column(
-            name = "ID",
-            updatable = false
+            name = "ID"
     )
     private Long id;
 
@@ -75,6 +76,17 @@ public class Film {
             columnDefinition = "INT DEFAULT 4"
     )
     private Integer start;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "TYPE_ID",
+            referencedColumnName = "ID",
+            foreignKey = @ForeignKey(
+                    name = "FILM_TYPE_FK"
+            )
+    )
+    @JsonIgnore
+    private Type type;
 
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.DATE)
@@ -183,6 +195,14 @@ public class Film {
 
     public void setStart(Integer start) {
         this.start = start;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Date getCreatedAt() {

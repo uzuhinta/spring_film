@@ -28,14 +28,14 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void getAll(ResponseBean bean) {
+    public void getAll(ResponseBean bean) throws Exception {
         List<Review> reviews = reviewRepository.getAll();
         bean.addData("reviews", reviews);
         bean.setError(Constant.ERROR_CODE_OK);
     }
 
     @Override
-    public void create(ResponseBean bean, ReviewDTO reviewDTO) {
+    public void create(ResponseBean bean, ReviewDTO reviewDTO) throws Exception {
         LOGGER.info(reviewDTO.toString());
         Review review = new Review(reviewDTO.getSummary(), reviewDTO.getShort_description(), reviewDTO.getContent());
         reviewRepository.saveAndFlush(review);
@@ -46,7 +46,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public void deleteReviewById(ResponseBean bean, Long reviewId) {
+    public void deleteReviewById(ResponseBean bean, Long reviewId) throws Exception {
         Optional<Review> optionalReview = reviewRepository.getReviewById(reviewId);
         if (optionalReview.isPresent()) {
             reviewRepository.deleteReviewById(reviewId);

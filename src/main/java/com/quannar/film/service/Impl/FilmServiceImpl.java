@@ -7,6 +7,8 @@ import com.quannar.film.payload.request.FilmDTO;
 import com.quannar.film.payload.response.ResponseBean;
 import com.quannar.film.repository.FilmRepository;
 import com.quannar.film.service.FilmService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -20,20 +22,24 @@ public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(FilmServiceImpl.class);
+
     @Autowired
     public FilmServiceImpl(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;
     }
 
     @Override
-    public void getAll(ResponseBean bean) {
+    public void getAll(ResponseBean bean) throws Exception {
         List<Film> allFilm = filmRepository.getAllFilm();
+
         bean.addData("films", allFilm);
+       LOGGER.info( allFilm.get(0).getType().toString());
         bean.setError(Constant.ERROR_CODE_OK);
     }
 
     @Override
-    public void create(ResponseBean bean, FilmDTO filmDTO) {
+    public void create(ResponseBean bean, FilmDTO filmDTO) throws Exception {
         Film film = new Film(filmDTO.getName(),
                 filmDTO.getNum_chap(),
                 filmDTO.getTimePerChap(),
@@ -50,7 +56,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     @Transactional
-    public void deleteFilmById(ResponseBean bean, Long filmId) {
+    public void deleteFilmById(ResponseBean bean, Long filmId) throws Exception {
 
         Optional<Film> optionalFilm = filmRepository.getFilmById(filmId);
 

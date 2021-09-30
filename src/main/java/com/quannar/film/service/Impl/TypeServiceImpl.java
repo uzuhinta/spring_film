@@ -24,14 +24,14 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public void getAll(ResponseBean bean) {
+    public void getAll(ResponseBean bean) throws Exception {
         List<Type> allType = typeRepository.getAllType();
         bean.addData("types", allType);
         bean.setError(Constant.ERROR_CODE_OK);
     }
 
     @Override
-    public void create(ResponseBean bean, TypeDTO typeDTO) {
+    public void create(ResponseBean bean, TypeDTO typeDTO) throws Exception {
         Type type = new Type(typeDTO.getName(), typeDTO.getDescription());
         typeRepository.saveAndFlush(type);
         bean.addData("type", type);
@@ -40,7 +40,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     @Transactional
-    public void deleteTypeById(ResponseBean bean, Long typeId) {
+    public void deleteTypeById(ResponseBean bean, Long typeId) throws Exception {
         Optional<Type> optionalType = typeRepository.getActorById(typeId);
 
         if (optionalType.isPresent()){

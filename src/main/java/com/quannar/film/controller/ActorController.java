@@ -1,5 +1,6 @@
 package com.quannar.film.controller;
 
+import com.quannar.film.common.Constant;
 import com.quannar.film.payload.request.ActorDTO;
 import com.quannar.film.payload.response.ResponseBean;
 import com.quannar.film.service.ActorService;
@@ -19,7 +20,7 @@ import java.sql.Date;
 @RequestMapping(path = "/api")
 public class ActorController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ActorController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActorController.class);
 
     private final ActorService actorService;
 
@@ -31,14 +32,26 @@ public class ActorController {
     @GetMapping(path = "/actor")
     ResponseEntity getActors() {
         ResponseBean bean = new ResponseBean();
-        actorService.getActors(bean);
+        try {
+            actorService.getActors(bean);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            bean.setDescription(Constant.MSG_SERVER_ERROR);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
         return ResponseEntity.ok(bean);
     }
 
     @GetMapping(path = "/actor/{id}")
     ResponseEntity getActor(@PathVariable("id") Long actorId) {
         ResponseBean bean = new ResponseBean();
-        actorService.getActor(bean, actorId);
+        try {
+            actorService.getActor(bean, actorId);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            bean.setDescription(Constant.MSG_SERVER_ERROR);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
         return ResponseEntity.ok(bean);
     }
 
@@ -48,22 +61,41 @@ public class ActorController {
             @RequestParam("size") Integer size
     ) {
         ResponseBean bean = new ResponseBean();
-        actorService.getActorWithPagination(bean, page, size);
+        try {
+            actorService.getActorWithPagination(bean, page, size);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            bean.setDescription(Constant.MSG_SERVER_ERROR);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
         return ResponseEntity.ok(bean);
     }
 
     @PostMapping(value = "/secure/actor", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity createActor(@Valid @ModelAttribute ActorDTO actorDTO) {
         ResponseBean bean = new ResponseBean();
-        logger.info(actorDTO.toString());
-        actorService.create(bean, actorDTO);
+
+        try {
+            LOGGER.info(actorDTO.toString());
+            actorService.create(bean, actorDTO);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            bean.setDescription(Constant.MSG_SERVER_ERROR);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
         return ResponseEntity.ok(bean);
     }
 
     @DeleteMapping(path = "/secure/actor/{id}")
     ResponseEntity deleteActor(@PathVariable("id") Long actorId) {
         ResponseBean bean = new ResponseBean();
-        actorService.deleteActorById(bean, actorId);
+        try {
+            actorService.deleteActorById(bean, actorId);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            bean.setDescription(Constant.MSG_SERVER_ERROR);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
         return ResponseEntity.ok(bean);
     }
 
@@ -73,8 +105,14 @@ public class ActorController {
             @ModelAttribute ActorDTO actorDTO
     ) {
         ResponseBean bean = new ResponseBean();
-        actorService.updateActor(bean, actorId, actorDTO);
-        logger.info(actorDTO.toString());
+        try {
+            actorService.updateActor(bean, actorId, actorDTO);
+            LOGGER.info(actorDTO.toString());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            bean.setDescription(Constant.MSG_SERVER_ERROR);
+            bean.setError(Constant.ERROR_CODE_NOK);
+        }
         return ResponseEntity.ok(bean);
     }
 

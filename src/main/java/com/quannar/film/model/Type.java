@@ -1,12 +1,14 @@
 package com.quannar.film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quannar.film.common.ConvertVI;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.*;
 
@@ -43,6 +45,10 @@ public class Type {
             columnDefinition = "TEXT"
     )
     private String description;
+
+    @OneToMany(mappedBy = "type")
+    @JsonIgnore
+    private Set<Film> films;
 
     @Transient
     private String slug;
@@ -95,6 +101,14 @@ public class Type {
         this.description = description;
     }
 
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -113,5 +127,18 @@ public class Type {
 
     public String getSlug() {
         return ConvertVI.createSlug(this.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", films=" + films +
+                ", slug='" + slug + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

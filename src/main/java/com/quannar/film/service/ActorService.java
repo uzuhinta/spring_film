@@ -17,11 +17,11 @@ import java.util.stream.Stream;
 
 public interface ActorService {
 
-   void getActors(ResponseBean bean);
-   void getActor(ResponseBean bean, Long actorId);
-   void getActorWithPagination(ResponseBean bean, Integer page, Integer size);
-   void create(ResponseBean bean, ActorDTO actorDTO);
-   void deleteActorById(ResponseBean bean, Long actorId);
-   void updateActor(ResponseBean bean, Long actorId, ActorDTO actorDTO);
+   void getActors(ResponseBean bean) throws Exception;
+   void getActor(ResponseBean bean, Long actorId) throws Exception;
+   void getActorWithPagination(ResponseBean bean, Integer page, Integer size) throws Exception;
+   void create(ResponseBean bean, ActorDTO actorDTO) throws Exception;
+   void deleteActorById(ResponseBean bean, Long actorId) throws Exception;
+   void updateActor(ResponseBean bean, Long actorId, ActorDTO actorDTO) throws Exception;
 
 }

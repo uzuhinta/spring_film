@@ -6,10 +6,10 @@ import com.quannar.film.payload.response.ResponseBean;
 
 public interface CategoryService {
 
-    void getAll(ResponseBean bean);
+    void getAll(ResponseBean bean) throws Exception;
 
-    void create(ResponseBean bean, CategoryDTO categoryDTO);
+    void create(ResponseBean bean, CategoryDTO categoryDTO) throws Exception;
 
-    void deleteCategoryById(ResponseBean bean, Long categoryId);
+    void deleteCategoryById(ResponseBean bean, Long categoryId) throws Exception;
 
 }

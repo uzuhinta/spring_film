@@ -28,14 +28,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void getAll(ResponseBean bean) {
+    public void getAll(ResponseBean bean) throws Exception {
         List<Category> allCategory = categoryRepository.getAllCategory();
         bean.addData("categories", allCategory);
         bean.setError(Constant.ERROR_CODE_OK);
     }
 
     @Override
-    public void create(ResponseBean bean, CategoryDTO categoryDTO) {
+    public void create(ResponseBean bean, CategoryDTO categoryDTO) throws Exception {
         LOGGER.info(categoryDTO.toString());
         Category category = new Category(categoryDTO.getName(), categoryDTO.getDescription());
         categoryRepository.saveAndFlush(category);
@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void deleteCategoryById(ResponseBean bean, Long categoryId) {
+    public void deleteCategoryById(ResponseBean bean, Long categoryId) throws Exception {
 
         Optional<Category> optionalCategory = categoryRepository.getCategoryById(categoryId);
 

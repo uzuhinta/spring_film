@@ -57,14 +57,14 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public void getActors(ResponseBean bean) {
+    public void getActors(ResponseBean bean) throws Exception {
         List<Actor> allActor = actorRepository.getAllActor();
         bean.addData("actors", allActor);
         bean.setError(Constant.ERROR_CODE_OK);
     }
 
     @Override
-    public void getActor(ResponseBean bean, Long actorId) {
+    public void getActor(ResponseBean bean, Long actorId) throws Exception {
         Optional<Actor> actorById = actorRepository.getActorById(actorId);
         if(actorById.isPresent()) {
             bean.setError(Constant.ERROR_CODE_OK);
@@ -76,7 +76,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public void getActorWithPagination(ResponseBean bean, Integer page, Integer size) {
+    public void getActorWithPagination(ResponseBean bean, Integer page, Integer size) throws Exception {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Actor> actorWithPagination = actorRepository.getActorWithPagination(pageable);
         bean.addData("totalItem", actorWithPagination.getTotalElements());
@@ -86,7 +86,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public void create(ResponseBean bean, ActorDTO actorDTO) {
+    public void create(ResponseBean bean, ActorDTO actorDTO) throws Exception {
         MultipartFile[] fileDatas = actorDTO.getFileDatas();
         Date date = new Date();
         long timeMilli = date.getTime();
@@ -131,7 +131,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     @Transactional
-    public void deleteActorById(ResponseBean bean, Long actorId) {
+    public void deleteActorById(ResponseBean bean, Long actorId) throws Exception {
         Optional<Actor> actorById = actorRepository.getActorById(actorId);
         if(actorById.isPresent()){
             actorRepository.deleteActorById(actorId);
@@ -145,7 +145,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public void updateActor(ResponseBean bean, Long actorId, ActorDTO actorDTO) {
+    public void updateActor(ResponseBean bean, Long actorId, ActorDTO actorDTO) throws Exception {
         Optional<Actor> actorById = actorRepository.getActorById(actorId);
         if(actorById.isPresent()){
             Actor actor = actorById.get();
